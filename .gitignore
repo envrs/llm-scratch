@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Data & artifacts (usually too large for git)
+01_data_collection/raw/
+01_data_collection/processed/
+03_preprocessing/shards/
+06_pretraining/checkpoints/
+06_pretraining/logs/
+08_post_training/checkpoints/
+
+# Experiment tracking
+wandb/
+mlruns/
+
+# OS
+.DS_Store
