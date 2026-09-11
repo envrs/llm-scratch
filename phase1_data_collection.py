@@ -304,6 +304,8 @@ def redact_pii(text: str) -> tuple[str, dict]:
 # --------------------------------------------------------------------------
 
 def split_dataset(docs: list[dict], val_frac: float, test_frac: float, seed: int):
+    if not (0 <= val_frac <= 1 and 0 <= test_frac <= 1 and val_frac + test_frac <= 1):
+        raise ValueError("val_frac and test_frac must be in [0, 1] and sum to at most 1")
     rng = random.Random(seed)
     shuffled = docs[:]
     rng.shuffle(shuffled)
