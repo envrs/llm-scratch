@@ -135,9 +135,15 @@ def _read_jsonl(path: Path, text_field: str) -> Iterator[dict]:
                 obj = json.loads(line)
             except json.JSONDecodeError:
                 continue
-            text = obj.get(text_field, "")
-            if text:
-                yield {"text": text, "source": f"{path}:{i}"}
+            if not isinstance(obj, dict):
+                continue
+            text = obj.get(text_field)
+            if not isinstance(text, str) or not text:
+                continue
+            source = obj.get("source")
+            if not isinstance(source, str) or not source:
+                source = f"{path}:{i}"
+            yield {"text": text, "source": source}
 
 
 def _read_csv(path: Path, text_field: str) -> Iterator[dict]:
