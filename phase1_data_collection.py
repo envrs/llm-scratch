@@ -340,7 +340,7 @@ def run_pipeline(cfg: PipelineConfig) -> None:
     def maybe_sample_reject(doc: dict, reason: str):
         if len(rejected_sample) < cfg.rejected_sample_size:
             rejected_sample.append({"reason": reason, "source": doc.get("source"),
-                                     "preview": doc["text"][:200]})
+                                     "preview": redact_pii(doc["text"])[0][:200]})
 
     print("[2/7] Exact deduplication ...")
     docs, n_exact_dup = dedup_exact(docs)
